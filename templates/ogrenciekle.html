@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <title>Document</title>
+    <style>
+        .container{
+            display:flex;
+            justify-content: center;
+        }
+        .newstudent{
+            margin-top:20px;
+            text-align:center;
+            justify-content: center;
+            display:flex;
+            flex-direction: column;
+            width:300px;
+        }
+        .newstudent input{
+            width:300px;
+            height:40px;
+            margin-bottom:20px;
+            border-radius:20px;
+        }
+        .newstudent button{
+            width:300px;
+            height:40px;
+            border-radius: 20px;;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+
+        <div class="newstudent">
+            <input type="text" name="name" placeholder="Öğrenci Adı">
+            <input type="text" name="number" placeholder="Öğrenci Numarası">
+            <input type="text" name="class" placeholder="Öğrenci Sınıfı">
+            <input type="text" name="card_id" placeholder="Öğrenci Kart Numarası">
+            <button>Ekle</button>
+    
+        </div>
+    </div>
+    <script>
+        const btn = document.querySelector("button");
+        const inputs = document.querySelectorAll("input");
+
+        btn.addEventListener("click", () => {
+            const tr = document.createElement("tr");
+            var base_url = "/add_new_student?"
+            inputs.forEach((input) => {
+                base_url += input.name + "=" + input.value + "&";
+            })
+            $.ajax({
+            url: base_url,
+            method: "POST",
+            success: function(response) {
+                // Redirect to homepage after successful AJAX request
+                window.location.href = "/"; // Replace "/" with your homepage URL
+            },
+            error: function(xhr, status, error) {
+                // Handle errors
+                console.error("AJAX request failed with status:", status);
+            }
+        });
+        })
+
+    </script>
+</body>
+</html>

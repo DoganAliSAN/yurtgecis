@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <a href="/" style="color:lightseagreen">Tüm öğrenciler</a>
+    <a href="/inside" style="color:green">İçeride olan öğrenciler</a>
+    <a href="/outside" style="color:red">Dışarıda olan öğrenciler</a>
+    <a href="/ogrenciekle" style="color:#3f2ab5;">Yeni Öğrenci ekle</a>
+
+    <table>
+        <tr>
+          <th>Öğrenci İsim soyisim</th>
+          <th>Öğrenci Numarası</th>
+          <th>Öğrenci Sınıfı</th>
+          <th>Öğrenci Kart No</th>
+          <th>Kart tekrar kullanım</th>
+          <th>Öğrenci Durumu</th>
+          <th>Sil</th>
+        </tr>
+        {% for student in students %}
+        <tr>
+            <td>{{ student.ADI_SOYADI }}</td>
+            <td>{{ student.OGRENCI_NO }}</td>
+            <td>{{ student.SINIF_ADI }}</td>
+            <td>{{ student.rfid_id.zfill(10) }}</td>
+            <td>{{ student.check_time }}</td>
+            {% if student.status == True %}
+            <td style="color:green">İçeride</td>
+            {% else %}
+
+            <td style="color:red">Dışarıda</td>
+            {% endif %}
+            <td><a href="/remove_student/{{ student.rfid_id }}">Delete</a></td>
+        </tr>
+        {% endfor %}
+        
+    </table>
+    <script>
+        //resresh page every 5 seconds
+        setInterval(() => {
+            window.location.reload();
+    
+        }, 2000);
+
+    </script>
+
+</body>
+</html>
